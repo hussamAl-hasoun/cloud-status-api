@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>☁️ Cloud Status Dashboard</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: #f7f9fc;
+            color: #333;
+            padding: 30px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        p.description {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 70%;
+            margin: auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-weight: bold;
+        }
+
+        .operational {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .degraded {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .outage {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .link {
+            margin-top: 30px;
+        }
+
+        .link a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+        }
+
+        .link a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>☁️ Cloud Service Status</h1>
+    <p class="description">تعرض هذه الصفحة حالة خدمات السحابة في الوقت الحالي لتتبع أي انقطاعات أو مشاكل تشغيل.</p>
+
+    <table>
+        <tr>
+            <th>Service</th>
+            <th>Status</th>
+        </tr>
+        {% for service in services %}
+        <tr>
+            <td>{{ service.name }}</td>
+            <td>
+                <span class="status 
+                    {% if service.status == 'operational' %}operational{% endif %}
+                    {% if service.status == 'degraded performance' %}degraded{% endif %}
+                    {% if service.status in ['partial outage', 'major outage'] %}outage{% endif %}
+                ">
+                    {{ service.status }}
+                </span>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <div class="link">
+        <a href="/docs">📘 شاهد واجهة API التفاعلية</a>
+    </div>
+</body>
+</html>
